@@ -7,7 +7,7 @@ const questions = ['Project Title: ','Description: ', 'Github Username: ', 'Emai
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    fileName = fileName + '.md'
+    fileName = 'README' + '.md'
     fs.writeFile(fileName, data, (err) => err ? console.error(err) : console.log(`${fileName} successful`));
 }
 
@@ -16,7 +16,7 @@ function init() {
     inquirer.prompt([
         {
             type: 'input',
-            name: 'Project Title',
+            name: 'Title',
             message: 'what is the project title?',
         },
         {
@@ -36,7 +36,7 @@ function init() {
         },
         {
             type: 'input',
-            name: 'installation',
+            name: 'Installation',
             message: 'Provide installation instructions: ',
         },
         {
@@ -63,7 +63,7 @@ function init() {
     ]).then((data) => {
         console.log('README generating...')
         markdownData = generateMarkdown(data)
-        console.log(`Successfully generate markdown data.
+        console.log(`Successfully generated markdown data.
 		Generating README file ...`)
         writeToFile(data.filename,markdownData)
     })
