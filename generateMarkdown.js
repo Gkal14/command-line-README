@@ -1,44 +1,67 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-function renderLicenseBadge(license) {}
+function renderLicenseBadge(license) {
+  if (license !== "None") {
+    var urlParse = license.replace(/ /g, "%20")
+		return `![License](https://img.shields.io/badge/license-${urlParse}-lightblue)`
+  }
+  return ''
+}
 
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
-function renderLicenseLink(license) {}
+function renderLicenseLink(license) {
+  if(license !== 'None')
+  return  `* [License](#license)`
+else
+  return ''
+}
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(license) {}
+function renderLicenseSection(license) {
+    if (license !== "None") {
+      return (
+        `## License
+  This project is licensed under the ${license} license.`
+      )
+    }
+    return ''
+  }
+
 
 // TODO: Create a function to generate markdown for README
-function generateMarkdown(answer) {
-  return `# ${answer.title}
+function generateMarkdown(data) {
+  return `# ${data.title}
+${renderLicenseBadge(data.license)}
 ## Description
-
-${answer.description}
-
-## Table of Contents
--[Description](#description) <br />
--[Installation](#installation) <br />
--[Usage](#usage) <br />
--[Contribution](#contribution) <br />
--[Tests](#tests) <br />
--[Questions](#questions) <br />
+${data.description}
+## Table of Contents 
+* [Installation](#installation)
+* [Usage](#usage)
+${renderLicenseLink(data.license)}
+* [Contributing](#contributing)
+* [Tests](#tests)
+* [Questions](#questions)
 ## Installation
-${answer.installation}
-## Licence
-${(answer.licence)}
+To install necessary dependencies, run the following command:
+\`\`\`
+${data.installation}
+\`\`\`
 ## Usage
-${answer.usage}
-## Contribution
-${answer.contribution}
+${data.usage}
+${renderLicenseSection(data.license)}
+  
+## Contributing
+${data.contributing}
 ## Tests
-${answer.tests}
+To run tests, run the following command:
+\`\`\`
+${data.test}
+\`\`\`
 ## Questions
-${answer.username}, ${answer.email}
-
-If you have any further questions, please reach out to me at https://github.com/Gkal14 <br>
-or by email at georgekaluwin@gmail.com
+If you have any questions about please contact me at [${data.github}](https://github.com/${data.github}/) 
+or by email on ${data.email}
 `;
 }
 

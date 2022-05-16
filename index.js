@@ -1,74 +1,71 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require ('fs');
-const generateMarkdown = require('./generateMarkdown')
-// TODO: Create an array of questions for user input
-const questions = ['Project Title: ','Description: ', 'Github Username: ', 'Email: ', 'Installation Instructions: ', 'License: ', 'Usage Info: ', 'Test Instructions: ', 'Contribution Guidelines: '];
-
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    fileName = 'README' + '.md'
-    fs.writeFile(fileName, data, (err) => err ? console.error(err) : console.log(`${fileName} successful`));
-}
+const path = require('path');
+const generateMarkdown = require('./generateMarkdown');
 
 // TODO: Create a function to initialize app
-function init() {
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'Title',
-            message: 'what is the project title?',
-        },
-        {
-            type: 'input',
-            name: 'Description',
-            message: 'Give a brief description of your project: ',
-        },
-        {
-            type: 'input',
-            name: 'Username',
-            message: 'Enter your Github username: ',
-        },
-        {
-            type: 'input',
-            name: 'Email',
-            message: 'enter your email: ',
-        },
-        {
-            type: 'input',
-            name: 'Installation',
-            message: 'Provide installation instructions: ',
-        },
-        {
-            type: 'list',
-            name: 'License',
-            message: 'Choose the license used for this project: ',
-            choices: ['MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3', 'None']
-        },
-        {
-            type: 'input',
-            name: 'Usage',
-            message: 'What will this project be used for?',
-        },
-        {
-            type: 'input',
-            name: 'Contributors',
-            message: 'Name your project contributors: ',
-        },
-        {
-            type: 'input',
-            name: 'Test',
-            message: 'What commands are run in order to test the project?',
-        }
-    ]).then((data) => {
-        console.log('README generating...')
-        markdownData = generateMarkdown(data)
-        console.log(`Successfully generated markdown data.
-		Generating README file ...`)
-        writeToFile(data.filename,markdownData)
-    })
-    
-}
-
+const questions = [
+    {
+      type: "input",
+      name: "github",
+      message: "What is your Github username?"
+    }, {
+      type: "input",
+      name: "email",
+      message: "What is your email address?"
+    },
+    {
+      type: "input",
+      name: "title",
+      message: "What is the name of your project?"
+    },
+    {
+      type: "input",
+      name: "description",
+      message: "Please provide a description of your project:"
+    },
+    {
+      type: "list",
+      name: "license",
+      message: "What kind of license should your project have?",
+      choices: ["MIT", "APACHE 2.0", "GPL 3.0", "BSD 3", "None"]
+    },
+    {
+      type: "input",
+      name: "installation",
+      message: "Please provide installation instructions:",
+      default: "npm install"
+    },
+    {
+      type: "input",
+      name: "test",
+      message: "What command should be run to run tests?",
+      default: "npm test"
+    },
+    {
+      type: "input",
+      name: "usage",
+      message: "What is your project used for?",
+    },
+    {
+      type: "input",
+      name: "contributing",
+      message: "Who are the contributors of this project?",
+    }
+  ];
+  
+  function writeToFile(fileName, data) {
+    return fs.writeFileSync(path.join(process.cwd(), fileName), data);
+  }
+  
+  function init() {
+    inquirer.prompt(questions)
+      .then((inquirerResponses) => {
+        console.log("README successfully generated!");
+        writeToFile("README.md", generateMarkdown({ ...inquirerResponses }));
+      })
+     
+  }
 // Function call to initialize app
 init();
