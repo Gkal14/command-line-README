@@ -8,4 +8,4 @@ Once all questions have been answered by the user, their README.md file will be 
 The file sampleREADME.md in this repository is the corresponding document for the inputs shown in the screenshot above.
 
 A walkthrough video of the process for generating a file using this application is available at the link below:<br>
-chrome-extension://mmeijimgabbpbgpdklnllpncmdofkcpn/app.html#/files/c1a65b53-0aae-4b51-y0bc-b4349c7e2e64
+https://drive.google.com/file/d/1GD01yb03j0flJ-_Nhn6zyf453WnjjRPH/view
